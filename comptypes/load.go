@@ -55,6 +55,22 @@ func LoadComptypes() error {
 	return nil
 }
 
+func flushUserDataToDisk() error {
+	f, err := os.OpenFile(filePath, os.O_RDWR|os.O_TRUNC, 0600)
+	if err != nil {
+		return rterror.PrependErrorWithRuntimeInfo(err, "error failed to open `%s` to write updated `UserData`", filePath)
+	}
+	defer f.Close()
+
+	je := json.NewEncoder(f)
+	err = je.Encode(data)
+	if err != nil {
+		return rterror.PrependErrorWithRuntimeInfo(err, "failed to encode updated `UserData` structure to `%s`", filePath)
+	}
+
+	return nil
+}
+
 func populateGlobals() {
 	for _, ct := range data.Comptypes {
 		comptypeLookup[ct.Name] = ct.Rules
