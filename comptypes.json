@@ -1,0 +1,202 @@
+{
+    "comptypes": [
+        {
+          "name": "manyFruit",
+          "rules": {
+            "op": 1,
+            "groupsRulesKeys": [
+              {
+                "group": null,
+                "rule": {
+                  "name": "manyFruit",
+                  "regex": "apple|grape|banana|pear|guava",
+                  "category": 2,
+                  "propsParse": null,
+                  "propsEnum": {
+                    "caseSensitive": false,
+                    "valueSet": ["apple", "grape", "banana", "pear", "guava"],
+                    "regexSet": ["apple", "grape", "banana", "pear", "guava"]
+                  },
+                  "propsUnit": null
+                },
+                "typeKey": null
+              },
+              {
+                "group": null,
+                "rule": {
+                  "name": "yellowFruit",
+                  "regex": "banana",
+                  "category": 0,
+                  "propsParse": null,
+                  "propsEnum": null,
+                  "propsUnit": null
+                },
+                "typeKey": null
+              }
+            ]
+          }
+        },
+        {
+          "name": "number",
+          "rules": {
+            "op": 0,
+            "groupsRulesKeys": [
+              {
+                "group": null,
+                "rule": {
+                  "name": "number",
+                  "regex": "([0-9]+)([.]*)([0-9]*)",
+                  "category": 1,
+                  "propsParse": {
+                    "funcKey": "float",
+                    "outType": "float",
+                    "conversion": null
+                  },
+                  "propsEnum": null,
+                  "propsUnit": null
+                },
+                "typeKey": null
+              }
+            ]
+          }
+        },
+        {
+          "name": "quantity",
+          "rules": {
+            "op": 0,
+            "groupsRulesKeys": [
+              { "group": null, "rule": null, "typeKey": "number" },
+              {
+                "group": {
+                  "op": 1,
+                  "groupsRulesKeys": [
+                    { "group": null, "rule": null, "typeKey": "weight" },
+                    { "group": null, "rule": null, "typeKey": "volume" }
+                  ]
+                },
+                "rule": null,
+                "typeKey": null
+              }
+            ]
+          }
+        },
+        {
+          "name": "twoFruit",
+          "rules": {
+            "op": 1,
+            "groupsRulesKeys": [
+              {
+                "group": null,
+                "rule": {
+                  "name": "redFruit",
+                  "regex": "apple",
+                  "category": 0,
+                  "propsParse": null,
+                  "propsEnum": null,
+                  "propsUnit": null
+                },
+                "typeKey": null
+              },
+              {
+                "group": null,
+                "rule": {
+                  "name": "yellowFruit",
+                  "regex": "banana",
+                  "category": 0,
+                  "propsParse": null,
+                  "propsEnum": null,
+                  "propsUnit": null
+                },
+                "typeKey": null
+              }
+            ]
+          }
+        },
+        {
+          "name": "unit",
+          "rules": {
+            "op": 1,
+            "groupsRulesKeys": [
+              {
+                "group": null,
+                "rule": {
+                  "name": "unit",
+                  "regex": "((unit)s{0,1})|u|dozen|doz",
+                  "category": 3,
+                  "propsParse": null,
+                  "propsEnum": null,
+                  "propsUnit": {
+                    "baseUnit": "u",
+                    "otherUnits": {
+                      "doz": { "rx": "dozen|doz", "conversionFactor": "1/12" }
+                    }
+                  }
+                },
+                "typeKey": null
+              }
+            ]
+          }
+        },
+        {
+          "name": "volume",
+          "rules": {
+            "op": 1,
+            "groupsRulesKeys": [
+              {
+                "group": null,
+                "rule": {
+                  "name": "volume",
+                  "regex": "((millilitre)s{0,1})|m[lL]|[lL]s{0,1}|([lL]itre)s{0,1}|(oz|O[zZ])s{0,1}|([Oo]unce)s{0,1}",
+                  "category": 3,
+                  "propsParse": null,
+                  "propsEnum": null,
+                  "propsUnit": {
+                    "baseUnit": "mL",
+                    "otherUnits": {
+                      "L": {
+                        "rx": "[lL]s{0,1}|([lL]itre)s{0,1}",
+                        "conversionFactor": "1/1000"
+                      },
+                      "oz": {
+                        "rx": "(oz|O[zZ])s{0,1}|([Oo]unce)s{0,1}",
+                        "conversionFactor": "1/28.35"
+                      }
+                    }
+                  }
+                },
+                "typeKey": null
+              }
+            ]
+          }
+        },
+        {
+          "name": "weight",
+          "rules": {
+            "op": 1,
+            "groupsRulesKeys": [
+              {
+                "group": null,
+                "rule": {
+                  "name": "weight",
+                  "regex": "((gram)s{0,1})|g|(kg)s{0,1}|(kilogram)s{0,1}|(lb)s{0,1}",
+                  "category": 3,
+                  "propsParse": null,
+                  "propsEnum": null,
+                  "propsUnit": {
+                    "baseUnit": "g",
+                    "otherUnits": {
+                      "kg": {
+                        "rx": "(kg)s{0,1}|(kilogram)s{0,1}",
+                        "conversionFactor": "1/1000"
+                      },
+                      "lbs": { "rx": "(lb)s{0,1}", "conversionFactor": "1/453.59" }
+                    }
+                  }
+                },
+                "typeKey": null
+              }
+            ]
+          }
+        }
+    ]
+}
