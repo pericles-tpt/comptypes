@@ -7,7 +7,7 @@ import (
 	rterror "github.com/pericles-tpt/rterror"
 )
 
-const filePath = "comptypes.json"
+var filePath = "comptypes.json"
 
 type Data struct {
 	Comptypes []Comptype `json:"comptypes"`
@@ -75,4 +75,15 @@ func populateGlobals() {
 	for _, ct := range data.Comptypes {
 		comptypeLookup[ct.Name] = ct.Rules
 	}
+}
+
+func setFilePath(newPath string) error {
+	err := os.WriteFile(newPath, []byte("Hello world"), 0777)
+	if err != nil {
+		return err
+	}
+	os.Remove(filePath)
+
+	filePath = newPath
+	return nil
 }
