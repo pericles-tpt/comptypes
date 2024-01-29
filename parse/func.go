@@ -1,4 +1,4 @@
-package comptypes
+package parse
 
 import (
 	"fmt"
