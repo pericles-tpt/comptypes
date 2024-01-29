@@ -82,7 +82,7 @@ func SetFilePath(newPath string) error {
 	if err != nil {
 		return err
 	}
-	os.Remove(filePath)
+	os.Remove(newPath)
 
 	filePath = newPath
 	return nil
