@@ -77,13 +77,6 @@ func populateGlobals() {
 	}
 }
 
-func SetFilePath(newPath string) error {
-	err := os.WriteFile(newPath, []byte("test"), 0777)
-	if err != nil {
-		return err
-	}
-	os.Remove(newPath)
-
+func SetFilePath(newPath string) {
 	filePath = newPath
-	return nil
 }
