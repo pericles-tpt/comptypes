@@ -15,7 +15,7 @@ type Data struct {
 var (
 	filePath       string
 	data           Data
-	comptypeLookup map[string]TypeGroup
+	comptypeLookup = map[string]TypeGroup{}
 	initalised     bool
 )
 
