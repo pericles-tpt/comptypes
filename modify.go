@@ -10,7 +10,7 @@ import (
 Add a user defined `TypeLabel` in `data`
 */
 func AddComptype(name string, rules TypeGroup) error {
-	if !init {
+	if !initalised {
 		return errors.New("error `LoadComptypes` not called before `AddComptype`")
 	}
 

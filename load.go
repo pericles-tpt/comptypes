@@ -58,7 +58,7 @@ func LoadComptypes() error {
 
 	populateGlobals()
 
-	init = true
+	initalised = true
 
 	return nil
 }
