@@ -2,23 +2,29 @@ package comptypes
 
 import (
 	"encoding/json"
+	"errors"
 	"os"
 
 	rterror "github.com/pericles-tpt/rterror"
 )
-
-var filePath = "comptypes.json"
 
 type Data struct {
 	Comptypes []Comptype `json:"comptypes"`
 }
 
 var (
+	filePath       = os.Getenv("CT_FILEPATH")
 	data           Data
-	comptypeLookup = map[string]TypeGroup{}
+	comptypeLookup map[string]TypeGroup
+	initalised     bool
 )
 
 func LoadComptypes() error {
+	// Path for comptypes.json, defined in env
+	if filePath == "" {
+		return errors.New("failed to get `CT_FILEPATH` from environment variables to load comptypes")
+	}
+
 	// Load `userData`
 	tmp, err := os.Stat(filePath)
 	if os.IsNotExist(err) || tmp.Size() == 0 {
@@ -52,6 +58,8 @@ func LoadComptypes() error {
 
 	populateGlobals()
 
+	init = true
+
 	return nil
 }
 
@@ -73,10 +81,6 @@ func flushUserDataToDisk() error {
 
 func populateGlobals() {
 	for _, ct := range data.Comptypes {
-		comptypeLookup[ct.Name] = ct.Rules
+		(comptypeLookup)[ct.Name] = ct.Rules
 	}
-}
-
-func SetFilePath(newPath string) {
-	filePath = newPath
 }

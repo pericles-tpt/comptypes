@@ -11,6 +11,10 @@ func GetMatchedPartsFromArgs(ct TypeGroup, arg string, matchedFields []interface
 		argRemaining = arg
 	)
 
+	if !initalised {
+		return argRemaining, []interface{}{}
+	}
+
 	for _, cond := range ct.GroupsRulesKeys {
 		var matchedFieldsRet []interface{}
 		if cond.Group != nil {

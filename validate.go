@@ -1,6 +1,7 @@
 package comptypes
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/pericles-tpt/rterror"
@@ -8,6 +9,11 @@ import (
 
 func (g *TypeGroup) Valid(rootRuleKey string) error {
 	var err error
+
+	if !initalised {
+		return errors.New("error `LoadCompValidtypes` not called before `Valid`")
+	}
+
 	// TODO:
 	// Some conditions below return vague errors that don't indicate what point in the recursive structure the error occurred
 	// SOLUTION: Generate unique ids for each `GroupRuleKey` for error logging (not necessary for conditions 2 & 4 below)
@@ -61,6 +67,10 @@ func (g *TypeGroup) Valid(rootRuleKey string) error {
 }
 
 func (r *TypeRule) Valid() error {
+	if !initalised {
+		return errors.New("error `LoadCompValidtypes` not called before `Valid`")
+	}
+
 	if r.Category == Alias && (r.PropsParse != nil || r.PropsEnum != nil) {
 		return rterror.PrependErrorWithRuntimeInfo(nil, "'Alias' category specified but one of `PropsParse` or `PropsEnum` is not nil")
 	} else if r.PropsParse == nil && r.PropsEnum == nil {
@@ -72,6 +82,10 @@ func (r *TypeRule) Valid() error {
 }
 
 func ComptypeContainsATypeKey(typeKey string) bool {
+	if !initalised {
+		return false
+	}
+
 	if rule, ok := comptypeLookup[typeKey]; ok {
 		for _, v := range rule.GroupsRulesKeys {
 			if v.TypeKey != nil {
@@ -83,6 +97,10 @@ func ComptypeContainsATypeKey(typeKey string) bool {
 }
 
 func ComptypeExists(target string) bool {
+	if !initalised {
+		return false
+	}
+
 	_, ok := comptypeLookup[target]
 	return ok
 }
