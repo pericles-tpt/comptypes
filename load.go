@@ -13,7 +13,7 @@ type Data struct {
 }
 
 var (
-	filePath       = os.Getenv("CT_FILEPATH")
+	filePath       string
 	data           Data
 	comptypeLookup map[string]TypeGroup
 	initalised     bool
@@ -21,6 +21,7 @@ var (
 
 func LoadComptypes() error {
 	// Path for comptypes.json, defined in env
+	filePath = os.Getenv("CT_FILEPATH")
 	if filePath == "" {
 		return errors.New("failed to get `CT_FILEPATH` from environment variables to load comptypes")
 	}
